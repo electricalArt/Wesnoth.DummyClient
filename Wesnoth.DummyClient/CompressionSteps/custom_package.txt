@@ -1,0 +1,6 @@
+[message]
+	message="hello there"
+	room="lobby"
+	sender="FFFAAAKKKEEE"
+[/message]
+
