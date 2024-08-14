@@ -5,6 +5,7 @@
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <zlib.h>
 
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
@@ -176,7 +177,6 @@ int __cdecl main(int argc, char** argv)
             printf("recv failed with error: %d\n", WSAGetLastError());
 
     } while (iResult > 0);
-
 
 
     // cleanup
