@@ -49,14 +49,14 @@ void send_data(const unsigned char* data, size_t len, SOCKET s)
     }
 }
 
-bool is_wave_message(const char* input_message, size_t len)
+bool is_wave_message(const char* packet, size_t len)
 {
     FILE* temp_file = NULL;
     fopen_s(&temp_file, "packet_recv.gz", "wb");
 
     if (temp_file) {
         unsigned char data[DEFAULT_BUFLEN];
-        memcpy(data, input_message + 4, len);
+        memcpy(data, packet + 4, len);
 
         // + 4 because first 4 bytes contain length of data.
         fwrite(data, 1, len - 4, temp_file);
@@ -146,7 +146,7 @@ int __cdecl main(int argc, char** argv)
         return 1;
     }
 
-    printf("Socket: %d\n", ConnectSocket);
+    printf("Socket: %lld\n", ConnectSocket);
 
     // Send handshake
     const unsigned char buff_handshake_p1[] = {
@@ -169,10 +169,7 @@ int __cdecl main(int argc, char** argv)
     unsigned char message1[] = "[message]\nmessage=\"ChatBot connected\"\n[/message]";
     send_data(message1, sizeof(message1), ConnectSocket);
 
-    // Send "z" chat message
-
-
-    // Receive until the peer closes the connection
+    // Receive and answer until the peer closes the connection
     do {
         puts("================================");
 
